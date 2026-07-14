@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-deployment
+  labels:
+    app: node-app
+spec:
+  replicas: 2
+  # 🔄 PRODUCTION ROLLING UPDATE STRATEGY CONFIGURATION
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1       # Allows Kubernetes to spin up 1 temporary extra pod during an update
+      maxUnavailable: 0 # Guarantees that 100% of your requested replicas (2) stay alive during an update
+  selector:
+    matchLabels:
+      app: node-app
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+        - name: node-app-container
+          # ⚠️ Use the exact unique tag outputted by your successful GitHub Actions run!
+          image: YOUR_AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/eks-node-app:YOUR_GIT_COMMIT_SHA
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "256m"
