@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc
+provisioner: ebs.csi.aws.com
+volumeBindingMode: WaitForFirstConsumer # Important: Wait to create the AWS disk until the pod is scheduled in a specific Availability Zone
+parameters:
+  type: gp3
