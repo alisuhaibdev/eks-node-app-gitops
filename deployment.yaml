@@ -23,7 +23,7 @@ spec:
       containers:
         - name: node-app-container
           # ⚠️ Use the exact unique tag outputted by your successful GitHub Actions run!
-          image: 712394252796.dkr.ecr.us-east-1.amazonaws.com/eks-node-app:363e02bdd23d4113dc049314bbc8574a9ddb51aa
+          image: 712394252796.dkr.ecr.us-east-1.amazonaws.com/eks-node-app:26dd4a6d939c9a81eaa8b3a3bdee3d15a293e90c
           ports:
             - containerPort: 3000
           resources:
